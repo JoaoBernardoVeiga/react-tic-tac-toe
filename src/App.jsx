@@ -49,7 +49,9 @@ function Board({xIsNext, squares, onPlay}) {
 	const winner = calculateWinner(squares);
 	let status;
 
-	if(winner) {
+	if(!winner && squares.every((square) => square !== null)) {
+		status = `Tie!`
+	} else if(winner) {
 		status = `Winner: ${winner}`;
 	} else {
 		status = `Next player: ${xIsNext ? "X" : "O"}`;
