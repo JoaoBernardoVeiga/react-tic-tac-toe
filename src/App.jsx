@@ -68,26 +68,29 @@ function Board({xIsNext, squares, onPlay}) {
 		onPlay(nextSquares);
 	}
 
+	const rows = () => {
+		let result = [];
+		for(let i = 0; i < squares.length; i += 3){
+			result.push(squares.slice(i, i + 3));
+		}
+		return result;
+	}
+
+	const board = rows().map((row, i) => {
+		return(
+			<div key={i} className="board-row">
+				{row.map((square, j) => <Square key={i*3 + j} value={square} onSquareClick={() => handleClick(i*3 + j)}/>)}
+			</div>
+
+		)
+	})
+
 	return (
 		<>
 			<div className='status'>
 				{status}
 			</div>
-			<div className="board-row">
-				<Square value={squares[0]} onSquareClick={() => handleClick(0)}/>
-				<Square value={squares[1]} onSquareClick={() => handleClick(1)}/>
-				<Square value={squares[2]} onSquareClick={() => handleClick(2)}/>
-			</div>
-			<div className="board-row">
-				<Square value={squares[3]} onSquareClick={() => handleClick(3)}/>
-				<Square value={squares[4]} onSquareClick={() => handleClick(4)}/>
-				<Square value={squares[5]} onSquareClick={() => handleClick(5)}/>
-			</div>
-			<div className="board-row">
-				<Square value={squares[6]} onSquareClick={() => handleClick(6)}/>
-				<Square value={squares[7]} onSquareClick={() => handleClick(7)}/>
-				<Square value={squares[8]} onSquareClick={() => handleClick(8)}/>
-			</div>
+			{board}
 		</>
 	) 
 }
